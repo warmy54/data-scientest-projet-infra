@@ -13,15 +13,23 @@ L’infrastructure du projet WebService est provisionnée via Terraform et repos
 ## Structure du projet
 ```
 .
-├── modules/
-│   ├── networking/
-│   ├── eks/
-│   └── rds/
-├── envs/
-│   ├── dev/
-│   └── prod/
+├── README.md
+├── envs
+│   ├── dev
+│   └── prod
+├── install_wordpress.sh
 ├── main.tf
-├── variables.tf
+├── modules
+│   ├── networking
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── rds
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
 ├── outputs.tf
-└── install_wordpress.sh
+├── terraform.tfstate
+├── terraform.tfvars
+└── variables.tf
 ```
