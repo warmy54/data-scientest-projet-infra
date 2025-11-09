@@ -37,6 +37,8 @@ provider "aws" {
 module "networking" {
   source    = "./modules/networking"
   namespace = var.namespace
+  tags      = var.tags
+  bastion_allowed_ip = "54.194.125.82"
 }
 
 # Module EKS
@@ -58,6 +60,9 @@ module "eks" {
       instance_types = ["t3.small"]
     }
   }
+
+  enable_irsa = true
+
   tags = merge(var.tags, {
     Terraform = "true"
     Environ   = var.namespace
@@ -80,4 +85,21 @@ module "rds" {
   tags = {
     Projet = var.namespace
   }
+}
+
+# Module S3
+module "s3" {
+  source      = "./modules/s3"
+  bucket_name = "${var.namespace}-wordpress-bucket"
+  tags        = var.tags
+}
+
+# Module Bastion
+module "bastion" {
+  source           = "./modules/bastion"
+  public_subnet_id = module.networking.public_subnets[0]
+  sg_id            = module.networking.sg_pub_id
+  ami_id           = "ami-0905a3c97561e0b69" # Ubuntu 22.04 eu-west-3
+  key_pair_name    = "terraform_key"
+  namespace        = var.namespace
 }
