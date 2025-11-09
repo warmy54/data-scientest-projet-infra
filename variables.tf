@@ -9,3 +9,20 @@ variable "region" {
   type        = string
   default     = "eu-west-3"
 }
+
+variable "tags" {
+  description = "Tags à appliquer aux ressources"
+  type        = map(string)
+  default = {
+    Projet = "projet-infra"
+  }
+}
+
+variable "db_username" {
+  type = string
+}
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
