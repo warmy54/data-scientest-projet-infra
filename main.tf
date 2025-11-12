@@ -35,16 +35,15 @@ provider "aws" {
 
 # Module réseau
 module "networking" {
-  source    = "./modules/networking"
-  namespace = var.namespace
-  tags      = var.tags
+  source             = "./modules/networking"
+  namespace          = var.namespace
+  tags               = var.tags
   bastion_allowed_ip = "52.215.44.106"
 }
 
 # Module EKS
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "19.21.0"
+  source = "github.com/dnkq/terraform-aws-eks-clean?ref=v19.21.0-clean"
 
   cluster_name    = "${var.namespace}-eks"
   cluster_version = "1.28"

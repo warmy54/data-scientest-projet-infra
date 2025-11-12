@@ -11,8 +11,8 @@ data "aws_availability_zones" "available" {}
 
 # appel du module vpc depuis le registry Terraform
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "5.1.2"
+  source = "github.com/dnkq/terraform-aws-vpc-clean?ref=v6.5.0-clean"
+
   name    = "${var.namespace}-vpc"
   cidr    = "10.0.0.0/16"
 
@@ -121,7 +121,7 @@ resource "aws_security_group" "allow_ssh_priv" {
 resource "aws_security_group" "bastion" {
   name   = "${var.namespace}-bastion-sg"
   vpc_id = module.vpc.vpc_id
-  
+
 
   ingress {
     description = "SSH depuis ton IP"
