@@ -38,7 +38,7 @@ module "networking" {
   source    = "./modules/networking"
   namespace = var.namespace
   tags      = var.tags
-  bastion_allowed_ip = "54.194.125.82"
+  bastion_allowed_ip = "52.215.44.106"
 }
 
 # Module EKS
@@ -57,7 +57,7 @@ module "eks" {
       desired_size   = 2
       min_size       = 1
       max_size       = 2
-      instance_types = ["t3.small"]
+      instance_types = ["t3.micro"]
     }
   }
 
